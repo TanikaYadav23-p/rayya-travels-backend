@@ -7,9 +7,9 @@ const ticketSchema = new mongoose.Schema(
       unique: true,
     },
 
-    name: {
+    fullName: {
       type: String,
-      required: [true, "Name is required"],
+      required: [true, "Full name is required"],
       trim: true,
     },
 
@@ -20,22 +20,39 @@ const ticketSchema = new mongoose.Schema(
       lowercase: true,
     },
 
-    mobileNumber: {
+    phone: {
       type: String,
-      required: [true, "Mobile number is required"],
+      required: [true, "Phone number is required"],
       trim: true,
     },
 
-    subject: {
+    service: {
       type: String,
-      required: [true, "Subject is required"],
+      required: [true, "Service is required"],
       trim: true,
     },
 
-    message: {
+    destination: {
       type: String,
-      required: [true, "Message is required"],
       trim: true,
+      default: "",
+    },
+
+    travelDate: {
+      type: String,
+      default: "",
+    },
+
+    travellers: {
+      type: String,
+      default: "1 Adult",
+      trim: true,
+    },
+
+    brief: {
+      type: String,
+      trim: true,
+      default: "",
     },
 
     status: {

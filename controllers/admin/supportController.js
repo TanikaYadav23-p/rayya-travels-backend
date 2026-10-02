@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Ticket = require("../../models/admin/Ticket");
 
-
 // =====================================================
 // GET ALL SUPPORT TICKETS
 // GET /api/admin/support-tickets
@@ -27,7 +26,7 @@ const getAllTickets = async (req, res) => {
     if (search.trim()) {
       query.$or = [
         {
-          name: {
+          fullName: {
             $regex: search.trim(),
             $options: "i",
           },
@@ -39,7 +38,7 @@ const getAllTickets = async (req, res) => {
           },
         },
         {
-          mobileNumber: {
+          phone: {
             $regex: search.trim(),
             $options: "i",
           },
@@ -51,7 +50,13 @@ const getAllTickets = async (req, res) => {
           },
         },
         {
-          subject: {
+          service: {
+            $regex: search.trim(),
+            $options: "i",
+          },
+        },
+        {
+          destination: {
             $regex: search.trim(),
             $options: "i",
           },
@@ -80,13 +85,20 @@ const getAllTickets = async (req, res) => {
     const formattedTickets = tickets.map((ticket) => ({
       id: ticket._id,
       supportId: ticket.ticketId,
-      name: ticket.name,
+
+      fullName: ticket.fullName,
       email: ticket.email,
-      mobileNumber: ticket.mobileNumber,
-      subject: ticket.subject,
-      description: ticket.message,
+      phone: ticket.phone,
+
+      service: ticket.service,
+      destination: ticket.destination,
+      travelDate: ticket.travelDate,
+      travellers: ticket.travellers,
+      brief: ticket.brief,
+
       status: ticket.status,
       createdAt: ticket.createdAt,
+      updatedAt: ticket.updatedAt,
     }));
 
     return res.status(200).json({
@@ -105,11 +117,11 @@ const getAllTickets = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Failed to fetch support tickets",
+      message:
+        error.message || "Failed to fetch support tickets",
     });
   }
 };
-
 
 // =====================================================
 // GET SINGLE SUPPORT TICKET
@@ -142,13 +154,20 @@ const getTicketById = async (req, res) => {
       data: {
         id: ticket._id,
         supportId: ticket.ticketId,
-        name: ticket.name,
+
+        fullName: ticket.fullName,
         email: ticket.email,
-        mobileNumber: ticket.mobileNumber,
-        subject: ticket.subject,
-        description: ticket.message,
+        phone: ticket.phone,
+
+        service: ticket.service,
+        destination: ticket.destination,
+        travelDate: ticket.travelDate,
+        travellers: ticket.travellers,
+        brief: ticket.brief,
+
         status: ticket.status,
         createdAt: ticket.createdAt,
+        updatedAt: ticket.updatedAt,
       },
     });
   } catch (error) {
@@ -156,11 +175,11 @@ const getTicketById = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Failed to fetch support ticket",
+      message:
+        error.message || "Failed to fetch support ticket",
     });
   }
 };
-
 
 // =====================================================
 // UPDATE SUPPORT TICKET STATUS
@@ -217,13 +236,20 @@ const updateTicketStatus = async (req, res) => {
       data: {
         id: ticket._id,
         supportId: ticket.ticketId,
-        name: ticket.name,
+
+        fullName: ticket.fullName,
         email: ticket.email,
-        mobileNumber: ticket.mobileNumber,
-        subject: ticket.subject,
-        description: ticket.message,
+        phone: ticket.phone,
+
+        service: ticket.service,
+        destination: ticket.destination,
+        travelDate: ticket.travelDate,
+        travellers: ticket.travellers,
+        brief: ticket.brief,
+
         status: ticket.status,
         createdAt: ticket.createdAt,
+        updatedAt: ticket.updatedAt,
       },
     });
   } catch (error) {
@@ -231,11 +257,11 @@ const updateTicketStatus = async (req, res) => {
 
     return res.status(500).json({
       success: false,
-      message: error.message || "Failed to update ticket status",
+      message:
+        error.message || "Failed to update ticket status",
     });
   }
 };
-
 
 module.exports = {
   getAllTickets,

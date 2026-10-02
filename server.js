@@ -13,6 +13,7 @@ const airlineRoutes = require("./routes/admin/airlineRoutes");
 const settingsRoutes = require("./routes/admin/settingsRoutes");
 const supportRoutes = require("./routes/admin/supportRoutes");
 const visaRoutes = require("./routes/admin/visaRoutes");
+const contactRoutes = require("./routes/user/contactRoutes");
 
 const adminVisaApplicationRoutes =
   require("./routes/admin/visaApplicationRoutes");
@@ -46,7 +47,7 @@ app.use(
   "/api/admin/visa-applications",
   adminVisaApplicationRoutes
 );
-
+app.use("/api/contact", contactRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
