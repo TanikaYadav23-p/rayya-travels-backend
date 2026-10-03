@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const dns = require("dns");
 
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/admin/userlistRoutes");
 const agentRoutes = require("./routes/admin/agentlistRoutes");
@@ -14,9 +15,10 @@ const settingsRoutes = require("./routes/admin/settingsRoutes");
 const supportRoutes = require("./routes/admin/supportRoutes");
 const visaRoutes = require("./routes/admin/visaRoutes");
 const contactRoutes = require("./routes/user/contactRoutes");
-
+const documentRoutes = require("./routes/document/documentRoutes");
 const adminVisaApplicationRoutes =
   require("./routes/admin/visaApplicationRoutes");
+const visaApplicationRoutes = require("./routes/user/visaApplicationRoutes")
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 dotenv.config();
@@ -43,9 +45,15 @@ app.use("/api/airlines", airlineRoutes);
 app.use("/api/admin/settings",settingsRoutes);
 app.use("/api/admin/support-tickets", supportRoutes);
 app.use("/api/visas", visaRoutes);
+app.use("/api/documents", documentRoutes);
 app.use(
   "/api/admin/visa-applications",
   adminVisaApplicationRoutes
+);
+
+app.use(
+  "/api/visa-applications",
+  visaApplicationRoutes
 );
 app.use("/api/contact", contactRoutes);
 app.use(notFound);
