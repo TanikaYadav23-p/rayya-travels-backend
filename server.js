@@ -15,6 +15,7 @@ const settingsRoutes = require("./routes/admin/settingsRoutes");
 const supportRoutes = require("./routes/admin/supportRoutes");
 const visaRoutes = require("./routes/admin/visaRoutes");
 const contactRoutes = require("./routes/user/contactRoutes");
+const profileRoutes = require("./routes/user/profileRoutes");
 const documentRoutes = require("./routes/document/documentRoutes");
 const adminVisaApplicationRoutes =
   require("./routes/admin/visaApplicationRoutes");
@@ -56,6 +57,7 @@ app.use(
   visaApplicationRoutes
 );
 app.use("/api/contact", contactRoutes);
+app.use("/api/user/profile", profileRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
